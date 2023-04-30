@@ -4,12 +4,17 @@ pipeline {
     options {
         buildDiscarder(logRotator(daysToKeepStr: '15', artifactDaysToKeepStr: '7'))
     }
-    checkout([
-        $class: 'GitSCM',
-        branches: [[name: params.commit_sha]],
-        userRemoteConfigs: scm.userRemoteConfigs
-    ])
     stages {
+        stage('Checkout') {
+            steps {
+              checkout([$class: 'GitSCM', 
+                branches: [[name: '*/main']],
+                doGenerateSubmoduleConfigurations: false,
+                extensions: [[$class: 'CleanCheckout']],
+                submoduleCfg: [], 
+                userRemoteConfigs: [[url: 'https://github.com/tkuipers/jenkins-test-build']]])
+            }
+        }
         stage('Build Center') {
             steps {
                 sh './gradlew build'
