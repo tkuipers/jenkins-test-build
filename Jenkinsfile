@@ -13,6 +13,8 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+                echo "Hello ${params.COMMIT}"
+                echo "Hello ${env.GIT_COMMIT}"
                 checkout([$class: 'GitSCM', 
                     branches: [[name: params.COMMIT]],
                     doGenerateSubmoduleConfigurations: false,
