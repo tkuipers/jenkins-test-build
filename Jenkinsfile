@@ -8,17 +8,17 @@ pipeline {
     stages {
         stage('prepare') {
             steps {
-                sh 'sudo apk add docker'
+                sh 'apk add docker'
             }
         }
         stage('build') {
             steps {
-                sh 'sudo docker build -t bc:latest .'
+                sh 'docker build -t bc:latest .'
             }
         }
         stage('push') {
             steps {
-                sh 'sudo docker image ls'
+                sh 'docker image ls'
             }
         }
     }
