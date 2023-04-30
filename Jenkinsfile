@@ -4,6 +4,7 @@ pipeline {
     options {
         buildDiscarder(logRotator(daysToKeepStr: '15', artifactDaysToKeepStr: '7'))
     }
+    
     stages {
         stage('Build Center') {
             steps {
