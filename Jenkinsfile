@@ -6,12 +6,21 @@ pipeline {
     }
     stages {
         stage('Checkout') {
-            steps {
-              checkout([$class: 'GitSCM', 
-                branches: [[name: params.commit_sha]],
-                doGenerateSubmoduleConfigurations: false,
-                userRemoteConfigs: scm.userRemoteConfigs])
+            if(params.commit_sha){
+                steps {
+                    checkout([$class: 'GitSCM', 
+                        branches: [[name: params.commit_sha]],
+                        doGenerateSubmoduleConfigurations: false,
+                        userRemoteConfigs: scm.userRemoteConfigs])
+                }
             }
+            else {
+                checkout([$class: 'GitSCM', 
+                        branches: [[name: env.GIT_COMMIT]],
+                        doGenerateSubmoduleConfigurations: false,
+                        userRemoteConfigs: scm.userRemoteConfigs])
+            }
+            
         }
         stage('Build Center') {
             steps {
