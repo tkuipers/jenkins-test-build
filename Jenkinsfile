@@ -11,15 +11,8 @@ pipeline {
             name: 'COMMIT')
     }
     stages {
-        stage("log params") {
-            steps {
-                echo "Hello ${params.COMMIT}"
-                echo "Hello ${env.GIT_COMMIT}"
-            }
-        }
         stage('Checkout') {
             steps {
-                echo "Hello ${env.GIT_COMMIT}"
                 checkout([$class: 'GitSCM', 
                     branches: [[name: params.COMMIT]],
                     doGenerateSubmoduleConfigurations: false,
@@ -35,6 +28,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://547222025036.dkr.ecr.ca-central-1.amazonaws.com/jenkins-test', 'ecr:ca-central-1:5cd84e3d-8930-464a-94a4-19461d2d4266') {
+                        echo "Tagging image: jenkins-test:${params.COMMIT}"
                         image = docker.build("jenkins-test:${params.COMMIT}")
                     }
                 }
