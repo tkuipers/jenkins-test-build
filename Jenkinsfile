@@ -11,9 +11,14 @@ pipeline {
             name: 'COMMIT')
     }
     stages {
-        stage('Checkout') {
+        stage("log params") {
             steps {
                 echo "Hello ${params.COMMIT}"
+                echo "Hello ${env.GIT_COMMIT}"
+            }
+        }
+        stage('Checkout') {
+            steps {
                 echo "Hello ${env.GIT_COMMIT}"
                 checkout([$class: 'GitSCM', 
                     branches: [[name: params.COMMIT]],
