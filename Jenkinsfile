@@ -3,6 +3,7 @@ pipeline {
     agent { 
         docker { 
             image 'amazoncorretto:11-alpine3.17' 
+            args '-u root --privileged'
         } 
     }
     stages {
