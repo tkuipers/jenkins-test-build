@@ -1,15 +1,24 @@
-/* Requires the Docker Pipeline plugin */
 pipeline {
     triggers { pollSCM 'H/5 * * * *' }
     agent { 
         docker { 
-            image 'maven:3.9.0-eclipse-temurin-11' 
+            image 'amazoncorretto:11' 
         } 
     }
     stages {
+        stage('prepare') {
+            steps {
+                sh 'apk add docker'
+            }
+        },
         stage('build') {
             steps {
-                sh 'echo "Hello World"'
+                sh 'docker build -t bc:latest .'
+            }
+        },
+        stage('push') {
+            steps {
+                sh 'docker image ls'
             }
         }
     }
