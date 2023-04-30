@@ -13,8 +13,14 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+                script {
+                    commit = env.GIT_COMMIT
+                    if(params.COMMIT != null && params.COMMIT != '') {
+                        commit = params.COMMIT
+                    }
+                }
                 checkout([$class: 'GitSCM', 
-                    branches: [[name: env.GIT_COMMIT]],
+                    branches: [[name: commit]],
                     doGenerateSubmoduleConfigurations: false,
                     userRemoteConfigs: scm.userRemoteConfigs])
             }
@@ -28,8 +34,8 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://547222025036.dkr.ecr.ca-central-1.amazonaws.com/jenkins-test', 'ecr:ca-central-1:5cd84e3d-8930-464a-94a4-19461d2d4266') {
-                        echo "Tagging image: jenkins-test:${env.GIT_COMMI}"
-                        image = docker.build("jenkins-test:${env.GIT_COMMIT}")
+                        echo "Tagging image: jenkins-test:${commit}"
+                        image = docker.build("jenkins-test:${commit}")
                     }
                 }
             }
