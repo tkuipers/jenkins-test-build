@@ -1,6 +1,9 @@
 pipeline {
     triggers { pollSCM '*/1 * * * *' }
     agent any
+    options {
+        buildDiscarder(logRotator(daysToKeepStr: '15', artifactDaysToKeepStr: '7'))
+    }
     stages {
         stage('Build Center') {
             steps {
@@ -16,7 +19,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Push Docker Image') {
             steps {
                 script {
