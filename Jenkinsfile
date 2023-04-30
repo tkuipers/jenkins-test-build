@@ -9,7 +9,8 @@ pipeline {
     stages {
         stage('prepare') {
             steps {
-                sh 'apk add docker openrc'
+                sh 'apk add docker-cli openrc'
+
             }
         }
         stage('build') {
