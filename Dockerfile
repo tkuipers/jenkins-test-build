@@ -1,3 +1,3 @@
 FROM amazoncorretto:11
 
-COPY . .
+COPY ./app/libs/app.jar /app.jar
