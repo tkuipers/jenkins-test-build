@@ -6,6 +6,6 @@ package sample;
 public class HelloWorld {
 
     public static String getMessage() {
-        return "Hello World Tomcat!!";
+        return "Hello World Tomcat!!2";
     }
 }

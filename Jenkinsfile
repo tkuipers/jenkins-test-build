@@ -1,5 +1,5 @@
 pipeline {
-    triggers { pollSCM 'H/1 * * * *' }
+    triggers { pollSCM '*/1 * * * *' }
     agent any
     stages {
         stage('Build Center') {
@@ -16,7 +16,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Push Docker Image') {
             steps {
                 script {
