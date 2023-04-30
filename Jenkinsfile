@@ -28,7 +28,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://547222025036.dkr.ecr.ca-central-1.amazonaws.com/jenkins-test', 'ecr:ca-central-1:5cd84e3d-8930-464a-94a4-19461d2d4266') {
-                        image = docker.build("jenkins-test:${params.commit_idT}")
+                        image = docker.build("jenkins-test:${params.commit_id}")
                     }
                 }
             }
