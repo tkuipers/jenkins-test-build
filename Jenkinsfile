@@ -4,6 +4,11 @@ pipeline {
     options {
         buildDiscarder(logRotator(daysToKeepStr: '15', artifactDaysToKeepStr: '7'))
     }
+    checkout([
+        $class: 'GitSCM',
+        branches: [[name: params.commit_sha]],
+        userRemoteConfigs: scm.userRemoteConfigs
+    ])
     stages {
         stage('Build Center') {
             steps {
