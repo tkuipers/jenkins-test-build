@@ -8,11 +8,9 @@ pipeline {
         stage('Checkout') {
             steps {
               checkout([$class: 'GitSCM', 
-                branches: [[name: '*/main']],
+                branches: [[name: params.commit_sha]],
                 doGenerateSubmoduleConfigurations: false,
-                extensions: [[$class: 'CleanCheckout']],
-                submoduleCfg: [], 
-                userRemoteConfigs: [[url: 'https://github.com/tkuipers/jenkins-test-build']]])
+                userRemoteConfigs: scm.userRemoteConfigs])
             }
         }
         stage('Build Center') {
