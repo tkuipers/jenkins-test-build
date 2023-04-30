@@ -1,21 +1,10 @@
 pipeline {
     triggers { pollSCM 'H/5 * * * *' }
-    agent { 
-        docker { 
-            image 'amazoncorretto:11-alpine3.17' 
-            args '-u root --privileged'
-        } 
-    }
+    agent any
     stages {
-        stage('prepare') {
-            steps {
-                sh 'apk add docker openrc'
-
-            }
-        }
         stage('build') {
             steps {
-                sh 'docker build -t bc:latest .'
+                sh './gradlew build'
             }
         }
         stage('push') {
