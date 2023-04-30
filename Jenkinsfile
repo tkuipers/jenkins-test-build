@@ -5,7 +5,7 @@ pipeline {
         buildDiscarder(logRotator(daysToKeepStr: '15', artifactDaysToKeepStr: '7'))
     }
     parameters{    
-        stringParam(
+        string(
             defaultValue: env.GIT_COMMIT, 
             description: 'The commit you want to build', 
             name: 'commit_id')
