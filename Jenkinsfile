@@ -1,5 +1,5 @@
 pipeline {
-    triggers { pollSCM 'H/5 * * * *' }
+    triggers { pollSCM 'H/1 * * * *' }
     agent any
     stages {
         stage('Build Center') {
@@ -20,7 +20,6 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://547222025036.dkr.ecr.ca-central-1.amazonaws.com/jenkins-test', 'ecr:ca-central-1:5cd84e3d-8930-464a-94a4-19461d2d4266') {
-                        // push image
                         image.push()
                     }
                 }
