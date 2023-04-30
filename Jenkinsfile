@@ -2,7 +2,7 @@ pipeline {
     triggers { pollSCM 'H/5 * * * *' }
     agent { 
         docker { 
-            image 'amazoncorretto:11' 
+            image 'amazoncorretto:11-alpine3.17' 
         } 
     }
     stages {
